@@ -93,7 +93,7 @@
           </a>
         </li>
         <li>
-          <a href="<?php echo base_url(); ?>index.php/c_peramalan/peramalan">
+          <a href="<?php echo base_url(); ?>index.php/c_peramalan/viewHalamanPeramalan">
             <i class="pe-7s-note2"></i>
             <p>Data Peramalan</p>
           </a>

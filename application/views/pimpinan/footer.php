@@ -74,8 +74,8 @@
       "lengthChange": false,
       "searching": false,
       "ordering": true,
-      "info": true,
-      "autoWidth": false
+      "info": false,
+      "autoWidth": true
     });
   });
 </script>

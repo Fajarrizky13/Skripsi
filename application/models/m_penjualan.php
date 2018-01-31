@@ -31,11 +31,8 @@ class M_penjualan extends CI_Model {
         return $last_id[0]['idpenjualan'];
     }
 
-    function peramalan(){
-        date_default_timezone_set("Asia/Jakarta");
-        $d = strtotime("yesterday");
-        $tanggal = date("Y-m-d", $d);
-        return $this->db->query("SELECT pr.jumlah from penjualan p join penjualanroti pr on pr.idpenjualan = p.idpenjualan where DATE_FORMAT(p.tanggal_jual, \"%Y-%m-%d\") = '".$tanggal."'")->result_array();
+    function peramalan($idroti){
+        return $this->db->query("SELECT pr.idroti, DATE_FORMAT(p.tanggal_jual, \"%d %M %Y\") as bulan, SUM(pr.jumlah) as total from penjualan p join penjualanroti pr on pr.idpenjualan = p.idpenjualan where pr.idroti = ".$idroti." group by DATE_FORMAT(p.tanggal_jual, \"%d\") ORDER BY DATE_FORMAT(p.tanggal_jual, \"%d\") ASC")->result_array();
     }
 
     function edit($id){
