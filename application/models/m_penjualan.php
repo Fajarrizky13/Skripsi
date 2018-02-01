@@ -32,7 +32,7 @@ class M_penjualan extends CI_Model {
     }
 
     function peramalan($idroti){
-        return $this->db->query("SELECT pr.idroti, DATE_FORMAT(p.tanggal_jual, \"%d %M %Y\") as bulan, SUM(pr.jumlah) as total from penjualan p join penjualanroti pr on pr.idpenjualan = p.idpenjualan where pr.idroti = ".$idroti." group by DATE_FORMAT(p.tanggal_jual, \"%d\") ORDER BY DATE_FORMAT(p.tanggal_jual, \"%d\") ASC")->result_array();
+        return $this->db->query("SELECT pr.idroti as id_roti, DATE_FORMAT(p.tanggal_jual, \"%d %M %Y\") as bulan, SUM(pr.jumlah) as total from penjualan p join penjualanroti pr on pr.idpenjualan = p.idpenjualan where pr.idroti = ".$idroti." group by DATE_FORMAT(p.tanggal_jual, \"%d\") ORDER BY DATE_FORMAT(p.tanggal_jual, \"%d\") ASC")->result_array();
     }
 
     function edit($id){

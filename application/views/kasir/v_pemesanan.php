@@ -1,4 +1,5 @@
-<?php $this->load->view('kasir/sidebar'); ?>
+<?php if ($_SESSION['idlevel'] == 1) { $this->load->view('kasir/sidebar'); }
+elseif ($_SESSION['idlevel'] == 4) { $this->load->view('pimpinan/sidebar'); } ?>
 
 <a class="navbar-brand">Data Pemesanan</a>
 
@@ -14,7 +15,9 @@
 					<div class="header">Daftar Pemesanan</div>
 					<div class="content">
 						<div class="toolbar">
+                            <?php if ($_SESSION['idlevel'] == 1) {?>
 							<a href="<?php echo base_url('index.php/c_pemesanan/formTambahPemesanan'); ?>" class="btn btn-primary" type="button">Tambah Pemesanan</a>
+                            <?php } ?>
 						</div>
 						<br>
 						<div class="fresh-datatables">

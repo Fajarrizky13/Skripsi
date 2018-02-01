@@ -54,7 +54,7 @@ class C_pemesanan extends CI_Controller {
 	{
 		
 		$data = $this->m_pemesanan->pemesanan();
-		$this->load->view('pimpinan/v_pemesanan', array('pemesanan' => $data));
+		$this->load->view('kasir/v_pemesanan', array('pemesanan' => $data));
 	}
 	public function simpan_pemesanan(){
 		$data = $this->input->post();
@@ -67,7 +67,8 @@ class C_pemesanan extends CI_Controller {
 		}     
 	}
 	public function selesai_pesan_kasir(){
-		$tanggal_pesan=date('Y-m-d');
+	    date_default_timezone_set("Asia/Jakarta");
+		$tanggal_pesan=date('Y-m-d H:i:s');
 		$total = $this->input->post('total_harga');
 		$bayar = $this->input->post('bayar');
 		$kembalian = $this->input->post('kembalian');

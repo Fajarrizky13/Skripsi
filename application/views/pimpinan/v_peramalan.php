@@ -53,9 +53,9 @@
                                                     <td><?php echo $ramal["bulan"]; ?></td>
                                                     <td><?php echo $ramal["total"]; ?></td>
                                                     <td><?php echo $data["ramal"][$no-1]; ?></td>
-                                                    <td><?php echo "Pesanan"; ?></td>
+                                                    <td><?php echo $data["pesanan"][$no-1]; ?></td>
                                                     <td class='text-center'>
-                                                        <a href="<?php echo base_url(); ?>index.php/c_bahanbaku/kebutuhanbahan">
+                                                        <a href="<?php echo base_url(); ?>index.php/c_bahanbaku/kebutuhanbahan?id=<?php echo $ramal["id_roti"]?>&tanggal=<?php echo $ramal["bulan"]?>">
                                                             <button type="submit" class="btn btn-fill btn-info">Lihat
                                                                 Bahan
                                                                 Baku

@@ -28,6 +28,7 @@ class m_bahanbaku extends CI_Model {
 		$query = $this->db->query('SELECT * FROM resep where idroti='.$id)->result_array();
 		return $query;
 	}
+
 }
 
 
