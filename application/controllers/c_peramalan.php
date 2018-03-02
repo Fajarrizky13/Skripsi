@@ -26,7 +26,7 @@ class C_peramalan extends CI_Controller
     // menampilkan permalan idroti tertentu
     public function peramalanRoti()
     {
-        $alpha = 0.5;
+        $alpha = 0.9;
         $data["ramal"] = array();
         $data["peramalan"] = $this->m_penjualan->peramalan($_POST["idroti"]);
         $index = 0;
@@ -62,5 +62,18 @@ class C_peramalan extends CI_Controller
 //        exit();
         $data["roti"] = $this->m_produk->produk();
         $this->load->view('pimpinan/v_peramalan', array('data' => $data));
+    }
+    public function bulanan()
+    {
+        $data = $this->m_rencanaproduksi->bulanan(2,2);
+        print_r($data);
+    }
+
+    public function setujuiRencana(){
+        $tanggal = $_POST['tanggal'];
+        $idroti = $_POST['idroti'];
+        // echo $tanggal . "-". $idroti;
+        $ubah = $this->m_rencanaproduksi->setujuiRencana($tanggal, $idroti);
+        redirect('c_peramalan/viewHalamanPeramalan');
     }
 }

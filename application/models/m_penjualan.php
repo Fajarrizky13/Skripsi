@@ -22,6 +22,19 @@ class M_penjualan extends CI_Model {
     function penjualanroti() {
         return $this->db->query("SELECT * FROM penjualanroti pr join roti r on pr.idroti=r.idroti where pr.idpenjualan = 0 order by pr.idpenjroti asc" )->result_array();
     }
+    function cekRoti($id){
+        $query = $this->db->query("SELECT * FROM `penjualanroti` WHERE idpenjualan = 0 AND idroti = ".$id);
+        return $query->num_rows();
+    }
+    function getRoti($id){
+        return $this->db->query("SELECT jumlah FROM `penjualanroti` WHERE idpenjualan = 0 AND idroti = ".$id)->result_array()[0];
+    }
+    function tambahRoti($id, $jumlah) {
+        return $this->db->query("UPDATE penjualanroti SET jumlah = ".$jumlah." where idroti = ".$id." AND idpenjualan = 0");   
+    }
+    function ubahpenjualanroti($id, $jumlah) {
+        return $this->db->query("UPDATE penjualanroti SET jumlah = ".$jumlah." where idpenjroti = ".$id);   
+    }
     function selesai_belanja($data)
     {   
         $this->db->insert('penjualan',$data);    
@@ -44,4 +57,9 @@ class M_penjualan extends CI_Model {
 		$data = $this->db->query('SELECT * FROM penjualan WHERE idpenjualan = '.$id)->result_array();
 		return $data[0];
 	}
+    public function delete($id)
+    {
+        $this->db->where('idpenjroti', $id);
+        return $this->db->delete('penjualanroti');
+    }
 }

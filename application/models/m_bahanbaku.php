@@ -29,6 +29,27 @@ class m_bahanbaku extends CI_Model {
 		return $query;
 	}
 
+	function validasi($id,$status){
+		$this->db->set('status', $status);
+		$this->db->where('idrencana', $id);
+		$this->db->update('rencanaproduksi');
+		redirect('c_bahanbaku/rencanaproduksi');
+	}
+
+	function rencanaproduksi(){
+		$query = $this->db->query('SELECT * FROM rencanaproduksi where status = "sudah"')->result_array();
+		return $query;
+	}
+
+	function rencanaproduksiRoti($id){
+		$query = $this->db->query('SELECT * FROM rencanaproduksi where status = "sudah" and idroti = '.$id)->result_array();
+		return $query;
+	}
+
+	function rincianbahan($id){
+		$query = $this->db->query('SELECT * FROM rencanaproduksi rp JOIN roti r on rp.idroti = r.idroti where status = "sudah" and rp.idroti = '.$id)->result_array();
+		return $query;
+	}
 }
 
 

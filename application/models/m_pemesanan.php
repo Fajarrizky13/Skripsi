@@ -20,6 +20,11 @@ class M_pemesanan extends CI_Model
         $query = $this->db->query('SELECT * FROM roti')->result_array();
         return $query;
     }
+    function namaRoti()
+    {
+        $query = $this->db->query('SELECT namaroti FROM roti')->result_array();
+        return $query;
+    }
 
     function pemesananroti()
     {
@@ -34,7 +39,7 @@ class M_pemesanan extends CI_Model
             'idroti' => $roti,
             'jumlah' => $jumlah,
             'atas_nama' => $atas_nama,
-        );
+            );
         $this->db->insert('pemesanan', $data);
         redirect('c_pemesanan/pemesanan');
     }
@@ -43,6 +48,19 @@ class M_pemesanan extends CI_Model
     {
         $data = $this->db->query('SELECT * FROM pemesananroti pr join roti r ON (pr.idroti = r.idroti) WHERE idpemroti = ' . $id)->result_array();
         return $data[0];
+    }
+
+    function cekRoti($id){
+        $query = $this->db->query("SELECT * FROM `pemesananroti` WHERE idpemesanan = 0 AND idroti = ".$id);
+        return $query->num_rows();
+    }
+
+    function getRoti($id){
+        return $this->db->query("SELECT jumlah FROM `pemesananroti` WHERE idpemesanan = 0 AND idroti = ".$id)->result_array()[0];
+    }
+
+    function ubahpemesananroti($id, $jumlah) {
+        return $this->db->query("UPDATE pemesananroti SET jumlah = ".$jumlah." where idpemroti = ".$id);   
     }
 
     function ubahpemesanan($id, $tanggal_ambil, $roti, $jumlah, $atas_nama)
@@ -69,10 +87,13 @@ class M_pemesanan extends CI_Model
     {
         return $this->db->insert('pemesananroti', $data);
     }
+    function tambahRoti($id, $jumlah) {
+        return $this->db->query("UPDATE pemesananroti SET jumlah = ".$jumlah." where idroti = ".$id." AND idpemesanan = 0");   
+    }
 
     public function peramalan($tanggal)
     {
         $date = (new DateTime($tanggal))->add(new DateInterval("P1D"))->format('d F Y');
-	    return $this->db->query("SELECT SUM(pr.jumlah) as total FROM pemesanan p join pemesananroti pr on p.idpemesanan = pr.idpemesanan where DATE_FORMAT(p.tanggal_ambil, '%d %M %Y') = '".$date."'")->result_array();
+        return $this->db->query("SELECT SUM(pr.jumlah) as total FROM pemesanan p join pemesananroti pr on p.idpemesanan = pr.idpemesanan where DATE_FORMAT(p.tanggal_ambil, '%d %M %Y') = '".$date."'")->result_array();
     }
 }

@@ -91,7 +91,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('index.php/produk'); ?>">
+                    <a href="<?php echo base_url(); ?>index.php/c_bahanbaku/produksi">
                         <i class="pe-7s-plugin"></i>
                         <p>Produksi</p>
                     </a>

@@ -111,7 +111,7 @@
           </a>
         </li>
         <li>
-          <a href="<?php echo base_url(); ?>index.php/c_bahanbaku/kebutuhanbahan">
+          <a href="<?php echo base_url(); ?>index.php/c_bahanbaku/kebutuhanstok">
             <i class="pe-7s-plugin"></i>
             <p>Kebutuhan Bahan</p>
           </a>
@@ -120,6 +120,12 @@
           <a href="<?php echo base_url(); ?>index.php/c_produk/produk">
             <i class="pe-7s-plugin"></i>
             <p>Roti</p>
+          </a>
+        </li>
+        <li>
+          <a href="<?php echo base_url(); ?>index.php/c_bahanbaku/rencanaproduksi">
+            <i class="pe-7s-plugin"></i>
+            <p>Rencana</p>
           </a>
         </li>
       </ul>
