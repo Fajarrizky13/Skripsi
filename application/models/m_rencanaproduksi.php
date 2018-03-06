@@ -24,4 +24,29 @@ class m_rencanaproduksi extends CI_Model
         $tanggal = (new DateTime($tanggal))->add(new DateInterval("P1D"))->format('Y-m-d');
         return $this->db->query("SELECT SUM(jumlah) as total FROM rencanaproduksi WHERE idroti=" . $id. " AND tanggal='".$tanggal."'")->result_array();
     }
+
+    public function getStatusRencanaProduksi($id, $tanggal)
+    {
+        $tanggal = (new DateTime($tanggal))->add(new DateInterval("P1D"))->format('Y-m-d');
+        return $this->db->query("SELECT status as stat FROM rencanaproduksi WHERE idroti=" . $id. " AND tanggal='".$tanggal."'")->result_array();
+    }
+
+    public function bulanan($bulan, $tahun){
+        $query = $this->db->query("SELECT SUM(jumlah) as totalbulanan ,  month (p.tanggal_jual) as bulan, r.idroti  , r.namaroti  FROM penjualan p join penjualanroti pr on p.idpenjualan=pr.idpenjualan join roti r on r.idroti =pr.idroti where month (p.tanggal_jual)='".$bulan."' and year(p.tanggal_jual) = '".$tahun."' group by pr.idroti order by pr.idroti" )->result_array();
+        return $query;
+    }
+
+    public function tahun(){
+        $query = $this->db->query("SELECT DISTINCT(year(tanggal_jual)) as tahun FROM penjualan")->result_array();
+        return $query;
+    }
+
+    public function pesananbulanan($bulan, $tahun, $idroti){
+        $query = $this->db->query("SELECT SUM(jumlah) as totalbulanan ,  month (p.tanggal_ambil) as bulan, r.idroti  , r.namaroti  FROM pemesanan p join pemesananroti pr on p.idpemesanan=pr.idpemesanan join roti r on r.idroti =pr.idroti where month (p.tanggal_ambil)='".$bulan."' and year(p.tanggal_ambil) = '".$tahun."' and pr.idroti='".$idroti."'")->result_array();
+        return $query;
+    }
+
+    public function setujuiRencana($tanggal, $idroti){
+        return $this->db->query("UPDATE rencanaproduksi SET status = 'sudah' where tanggal = '".$tanggal."' AND idroti = ".$idroti); 
+    }
 }

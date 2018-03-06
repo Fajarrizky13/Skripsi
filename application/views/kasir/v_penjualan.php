@@ -23,30 +23,26 @@ elseif ($_SESSION['idlevel'] == 4) { $this->load->view('pimpinan/sidebar'); } ?>
 						<div class="fresh-datatables">
 							<table  id="example1" class="table table-hover table-striped">
 								<thead>
-									<th>No</th>
-									<th>Id Penjualan</th>
-									<th>Tanggal</th>
-									<th>Jam</th>
-									<th>Total</th>
-									<th>Bayar</th>
-									<th>Kembalian</th>
-									<th class="disabled-sorting text-center">Actions</th>
+									<th style="text-align:center">No</th>
+									<th style="text-align:center">Id Penjualan</th>
+									<th style="text-align:center">Tanggal</th>
+									<th style="text-align:center">Jam</th>
+									<th style="text-align:center">Total (Rp)</th>
+									<th style="text-align:center" class="disabled-sorting text-center">Actions</th>
 								</thead>
 								<tbody>
 									<?php
 									$no = 1;
 									foreach ($penjualan as $row){
 										?>
-										<td><?= $no ?></td>
-										<td><?= $row['idpenjualan']?></td>
-										<td><?= $row['tanggal']?></td>
-										<td><?= $row['jam']?></td>
-										<td><?= $row['total']?></td>
-										<td><?= $row['bayar']?></td>
-										<td><?= $row['kembalian']?></td>
+										<td style="text-align:center"><?= $no ?></td>
+										<td style="text-align:center"><?= $row['idpenjualan']?></td>
+										<td style="text-align:center"><?= $row['tanggal']?></td>
+										<td style="text-align:center"><?= $row['jam']?></td>
+										<td style="text-align:center"><?= $row['total']?></td>
 										<td class="text-center">
-											<a  class="btn btn-simple btn-warning btn-icon table-action edit" 
-											rel="tooltip" title="Ubah" href="<?php echo base_url('index.php/c_penjualan/formUbahPenjualan/'.$row['idpenjualan']); ?>"><i class="fa fa-edit"></i></a>
+											<a href="<?=site_url('c_penjualan/detail/'.$row['idpenjualan'])?>"><b button type="submit" class="btn btn-fill btn-info" class="btn bg-blue waves-effect">Lihat Detail</b>
+											</a>
 										</td>
 									</tr>
 									<?php

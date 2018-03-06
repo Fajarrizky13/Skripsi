@@ -7,9 +7,18 @@ class M_penjualan extends CI_Model {
 		parent::__construct();
 	}
 	function penjualan(){
-		$query = $this->db->query('SELECT idpenjualan, date_format(tanggal_jual, \'%d %m %Y\') as tanggal, date_format(tanggal_jual, \'%T\') as jam, total, bayar, kembalian  FROM penjualan')->result_array();
+		$query = $this->db->query('SELECT idpenjualan, date_format(tanggal_jual, \'%d %m %Y\') as tanggal, date_format(tanggal_jual, \'%T\') as jam, total, bayar, kembalian  FROM penjualan order by idpenjualan desc')->result_array();
 		return $query;
 	}
+    function detailp($id){
+        $query = $this->db->query('SELECT * FROM penjualanroti p join roti r on p.idroti=r.idroti where idpenjualan=' .$id)->result_array();
+        return $query;
+    }
+    public function rekap($id){
+        $query = $this->db->query('SELECT * , date_format(tanggal_jual, \'%d %m %Y\') as tanggal FROM penjualan where idpenjualan = ' .$id)->result_array();
+        return $query;
+    }
+
 	public function get_id($id)
     {
         $this->db->where('idDetail', $id);
@@ -22,6 +31,19 @@ class M_penjualan extends CI_Model {
     function penjualanroti() {
         return $this->db->query("SELECT * FROM penjualanroti pr join roti r on pr.idroti=r.idroti where pr.idpenjualan = 0 order by pr.idpenjroti asc" )->result_array();
     }
+    function cekRoti($id){
+        $query = $this->db->query("SELECT * FROM `penjualanroti` WHERE idpenjualan = 0 AND idroti = ".$id);
+        return $query->num_rows();
+    }
+    function getRoti($id){
+        return $this->db->query("SELECT jumlah FROM `penjualanroti` WHERE idpenjualan = 0 AND idroti = ".$id)->result_array()[0];
+    }
+    function tambahRoti($id, $jumlah) {
+        return $this->db->query("UPDATE penjualanroti SET jumlah = ".$jumlah." where idroti = ".$id." AND idpenjualan = 0");   
+    }
+    function ubahpenjualanroti($id, $jumlah) {
+        return $this->db->query("UPDATE penjualanroti SET jumlah = ".$jumlah." where idpenjroti = ".$id);   
+    }
     function selesai_belanja($data)
     {   
         $this->db->insert('penjualan',$data);    
@@ -32,7 +54,7 @@ class M_penjualan extends CI_Model {
     }
 
     function peramalan($idroti){
-        return $this->db->query("SELECT pr.idroti as id_roti, DATE_FORMAT(p.tanggal_jual, \"%d %M %Y\") as bulan, SUM(pr.jumlah) as total from penjualan p join penjualanroti pr on pr.idpenjualan = p.idpenjualan where pr.idroti = ".$idroti." group by DATE_FORMAT(p.tanggal_jual, \"%d\") ORDER BY DATE_FORMAT(p.tanggal_jual, \"%d\") ASC")->result_array();
+        return $this->db->query("SELECT pr.idroti as id_roti, DATE_FORMAT(p.tanggal_jual, \"%d %M %Y\") as tanggal, SUM(pr.jumlah) as total from penjualan p join penjualanroti pr on pr.idpenjualan = p.idpenjualan where pr.idroti = ".$idroti." group by DATE_FORMAT(p.tanggal_jual, \"%d\") ORDER BY DATE_FORMAT(p.tanggal_jual, \"%d\") ASC")->result_array();
     }
 
     function edit($id){
@@ -44,4 +66,9 @@ class M_penjualan extends CI_Model {
 		$data = $this->db->query('SELECT * FROM penjualan WHERE idpenjualan = '.$id)->result_array();
 		return $data[0];
 	}
+    public function delete($id)
+    {
+        $this->db->where('idpenjroti', $id);
+        return $this->db->delete('penjualanroti');
+    }
 }

@@ -26,18 +26,18 @@ class C_peramalan extends CI_Controller
     // menampilkan permalan idroti tertentu
     public function peramalanRoti()
     {
-        $alpha = 0.5;
+        $alpha = 0.9;
         $data["ramal"] = array();
         $data["peramalan"] = $this->m_penjualan->peramalan($_POST["idroti"]);
         $index = 0;
         foreach ($data["peramalan"] as $ramal) {
 
             if ($index == 0) {
-                $data["ramal"][] = 0;
+                $data["ramal"][] = $ramal["total"];
             } else {
                 $data["ramal"][] = ($alpha * $ramal["total"]) + (1 - $alpha) * $data["ramal"][$index - 1];
             }
-            $pesanan = $this->m_pemesanan->peramalan($ramal["bulan"]);
+            $pesanan = $this->m_pemesanan->peramalan($ramal["tanggal"], $_POST["idroti"]);
             if ($pesanan[0]["total"] == null) {
                 $data["pesanan"][] = 0;
             } else {
@@ -46,7 +46,7 @@ class C_peramalan extends CI_Controller
 
             $rencana = $data["ramal"][$index] + $data["pesanan"][$index];
 
-            $tanggal = (new DateTime($ramal["bulan"]))->add(new DateInterval("P1D"))->format('Y-m-d');
+            $tanggal = (new DateTime($ramal["tanggal"]))->add(new DateInterval("P1D"))->format('Y-m-d');
             $dataRencana = array(
                 'idroti' => $_POST["idroti"],
                 'jumlah' => $rencana,
@@ -62,5 +62,18 @@ class C_peramalan extends CI_Controller
 //        exit();
         $data["roti"] = $this->m_produk->produk();
         $this->load->view('pimpinan/v_peramalan', array('data' => $data));
+    }
+    public function bulanan()
+    {
+        $data = $this->m_rencanaproduksi->bulanan(2,2);
+        print_r($data);
+    }
+
+    public function setujuiRencana(){
+        $tanggal = $_POST['tanggal'];
+        $idroti = $_POST['idroti'];
+        // echo $tanggal . "-". $idroti;
+        $ubah = $this->m_rencanaproduksi->setujuiRencana($tanggal, $idroti);
+        redirect('c_peramalan/viewHalamanPeramalan');
     }
 }

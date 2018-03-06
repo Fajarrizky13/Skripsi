@@ -43,6 +43,31 @@ class M_produk extends CI_Model {
         $this->db->where($id);
         $this->db->delete($tabel);
         
+    }
+    public function jumlahjenis(){
+    	$query=$this->db->query('SELECT idroti FROM roti');
+    	return $query;
+    }
+    public function penjualan(){
+        $query=$this->db->query('SELECT * FROM penjualan')->result_array();
+        return $query;
+    }
+    public function harian($id, $bulan){
+        
+        $idjual=$this->db->query('SELECT idpenjualan FROM penjualan where MONTH(tanggal_jual) ='.($bulan-1))->result_array();
+        // print_r($idjual);
+        $query2=array();
+        $i=0;
+        foreach ($idjual as $key) {
+    	$query2[$i]=$this->db->query('SELECT pr.jumlah FROM penjualan p join penjualanroti pr on p.idpenjualan = pr.idpenjualan where pr.idroti='.$id.' and pr.idpenjualan ='.$key['idpenjualan'])->row();
+            # code...
+        // print_r($query2[$i]);
+        $i++;
+        }
+        // exit();
+        $query=array_merge($query2);
+        // var_dump($query);
+    	return $query;
     }	
 
 }

@@ -1,4 +1,4 @@
-<?php
+s<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class C_produk extends CI_Controller {

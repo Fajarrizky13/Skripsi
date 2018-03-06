@@ -47,8 +47,10 @@ elseif ($_SESSION['idlevel'] == 4) { $this->load->view('pimpinan/sidebar'); } ?>
 										<td><?= $row['tanggal_ambil']?></td>
 										<td><?= $row['atas_nama']?></td>
 										<td class="text-center">
-											<a  class="btn btn-simple btn-warning btn-icon table-action edit" 
-											rel="tooltip" title="Ubah" href="<?php echo base_url('index.php/c_pemesanan/formUbahPemesanan/'.$row['idpemesanan']); ?>"><i class="fa fa-edit"></i></a>
+											<a href="<?=site_url('c_pemesanan/detail/'.$row['idpemesanan'])?>">
+												<b button type="submit" class="btn btn-fill btn-info" 
+												class="btn bg-blue waves-effect">Lihat Detail</b>
+											</a>
 										</td>
 									</tr>
 									<?php

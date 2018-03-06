@@ -1,8 +1,8 @@
 <?php $this->load->view('produksi/sidebar'); ?>
-    
-      <a class="navbar-brand">Dashboard Produksi</a>
+    <a class="navbar-brand">Dashboard Pimpinan</a>
+ <?php $this->load->view('produksi/headbar'); ?>
+     
 
-<?php $this->load->view('produksi/headbar'); ?>
 <!--Grafik Permintaan-->
 
 <!--Grafik Permintaan end-->
