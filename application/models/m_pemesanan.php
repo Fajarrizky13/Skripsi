@@ -104,6 +104,7 @@ class M_pemesanan extends CI_Model
     public function peramalan($tanggal, $idroti)
     {
         $date = (new DateTime($tanggal))->add(new DateInterval("P1D"))->format('d F Y');
+<<<<<<< HEAD
         return $this->db->query("SELECT SUM(pr.jumlah) as total FROM pemesanan p join pemesananroti pr on p.idpemesanan = pr.idpemesanan where DATE_FORMAT(p.tanggal_ambil, '%d %M %Y') = '".$date."' and pr.idroti=".$idroti)->result_array();
     }
 
@@ -111,5 +112,8 @@ class M_pemesanan extends CI_Model
     {
         $this->db->where('idpemroti', $id);
         return $this->db->delete('pemesananroti');
+=======
+        return $this->db->query("SELECT SUM(pr.jumlah) as total FROM pemesanan p join pemesananroti pr on p.idpemesanan = pr.idpemesanan where DATE_FORMAT(p.tanggal_ambil, '%d %M %Y') = '".$date."'")->result_array();
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
     }
 }

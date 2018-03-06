@@ -24,6 +24,7 @@ class m_rencanaproduksi extends CI_Model
         $tanggal = (new DateTime($tanggal))->add(new DateInterval("P1D"))->format('Y-m-d');
         return $this->db->query("SELECT SUM(jumlah) as total FROM rencanaproduksi WHERE idroti=" . $id. " AND tanggal='".$tanggal."'")->result_array();
     }
+<<<<<<< HEAD
 
     public function getStatusRencanaProduksi($id, $tanggal)
     {
@@ -43,6 +44,10 @@ class m_rencanaproduksi extends CI_Model
 
     public function pesananbulanan($bulan, $tahun, $idroti){
         $query = $this->db->query("SELECT SUM(jumlah) as totalbulanan ,  month (p.tanggal_ambil) as bulan, r.idroti  , r.namaroti  FROM pemesanan p join pemesananroti pr on p.idpemesanan=pr.idpemesanan join roti r on r.idroti =pr.idroti where month (p.tanggal_ambil)='".$bulan."' and year(p.tanggal_ambil) = '".$tahun."' and pr.idroti='".$idroti."'")->result_array();
+=======
+    public function bulanan($bulan){
+        $query = $this->db->query("SELECT SUM(jumlah) as totalbulanan ,  month (p.tanggal_jual) as bulan, r.idroti  , r.namaroti  FROM penjualan p join penjualanroti pr on p.idpenjualan=pr.idpenjualan join roti r on r.idroti =pr.idroti where month (p.tanggal_jual)='".$bulan."' group by pr.idroti" )->result_array();
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
         return $query;
     }
 

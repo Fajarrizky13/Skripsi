@@ -50,6 +50,7 @@ class m_bahanbaku extends CI_Model {
 		$query = $this->db->query('SELECT * FROM rencanaproduksi rp JOIN roti r on rp.idroti = r.idroti where status = "sudah" and rp.idroti = '.$id)->result_array();
 		return $query;
 	}
+<<<<<<< HEAD
 
 	function lihatkebutuhan($bulan, $tahun){
 		$query = $this->db->query("SELECT SUM(jumlah) as totalbulanan,  month (k.bulan) as bulan, r.idroti , r.namaroti  FROM kebutuhan k join roti r on k.idroti=r.idroti where month (k.bulan)='".$bulan."' and year(k.bulan) = '".$tahun."' group by r.idroti order by r.idroti" )->result_array();
@@ -60,6 +61,8 @@ class m_bahanbaku extends CI_Model {
 		$query = $this->db->query("insert into kebutuhan values (' ','$data[idroti]','$data[ramalan]','belum','$data[bulan]',null)" );
         return $query;
 	}
+=======
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
 }
 
 

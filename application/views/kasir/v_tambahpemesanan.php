@@ -41,7 +41,11 @@
                 </div>
               </div>
             </div>
+<<<<<<< HEAD
             <div class="header">Tambah Pemesanan</div>
+=======
+            <div class="header">Tambah Penjualan</div>
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
             <div class="content">
               <div class="form-group">
                 <label>Jenis Roti</label>
@@ -78,7 +82,11 @@
               <div class="header">Rincian Pemesanan</div>
               <div class="content">
                 <div class="body">
+<<<<<<< HEAD
                   <table class="table table-hover table-striped">
+=======
+                  <table class="table table-bordered table-striped">
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
                     <thead>
                       <tr>
                         <th>No</th>
@@ -113,9 +121,14 @@
                           </div>
                         </div>
                         <div class="col-sm-4">
+<<<<<<< HEAD
                           <a href="<?=site_url('c_pemesanan/delete/'.$row['idpemroti'])?>" onclick="return confirm('Apakah anda yakin menghapus data ini?');">
                             <b button type="submit" class="btn btn-danger btn-fill">delete</b>
                           </a>
+=======
+                          <a href="<?=site_url('c_pemesanan/delete/'.$row['idpemroti'])?>"><div class="demo-google-material-icon"> <i class="material-icons">delete</i>
+                          </div></a>
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
                         </div>
                       </td>
                       <?php }?>

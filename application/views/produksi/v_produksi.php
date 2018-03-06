@@ -1,6 +1,9 @@
 <?php $this->load->view('produksi/sidebar'); ?>
+<<<<<<< HEAD
 <a class="navbar-brand">Produksi</a>
 <?php $this->load->view('produksi/headbar'); ?>
+=======
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
 
 <div class="modal fade" id="lihatBahan" role="dialog">
     <div class="modal-dialog">

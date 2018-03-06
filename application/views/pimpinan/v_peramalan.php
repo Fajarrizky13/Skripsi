@@ -4,6 +4,10 @@
 
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -16,9 +20,15 @@
             <div class="col-sm-6">
                 <table class="table">
                     <tr>
+<<<<<<< HEAD
                         <td width="60px"><b>Tanggal</b></td>
                         <td width="5px">:</td>
                         <td><span id="tanggal"></span></td>
+=======
+                        <td width="60px"><b>Bulan</b></td>
+                        <td width="5px">:</td>
+                        <td><span id="bulan"></span></td>
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
                     </tr>
                     <tr>
                         <td><b>Total</b></td>
@@ -69,7 +79,11 @@
         <form method="post" action="<?= site_url(); ?>/c_peramalan/setujuiRencana">
             <input type="hidden" name="idroti">
             <input type="hidden" name="tanggal">
+<<<<<<< HEAD
             <button type="submit" class="btn btn-fill" id="approve">Approve</button>
+=======
+            <button type="submit" class="btn btn-fill btn-success">Approve</button>
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </form>
     </div>
@@ -126,20 +140,35 @@
                                                     $no++; ?>
                                                     <tr>
                                                         <td><?php echo $no; ?></td>
+<<<<<<< HEAD
                                                         <td><?php echo $ramal["tanggal"]; ?></td>
+=======
+                                                        <td><?php echo $ramal["bulan"]; ?></td>
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
                                                         <td><?php echo $ramal["total"]; ?></td>
                                                         <td><?php echo $data["ramal"][$no-1]; ?></td>
                                                         <td><?php echo $data["pesanan"][$no-1]; ?></td>
                                                         <td class='text-center'>
+<<<<<<< HEAD
                                                             <a>
                                                                 <button type="submit" class="btn btn-fill btn-info open-modal" data-toggle="modal" data-target="#myModal" 
                                                                 data-tanggal="<?php echo $ramal["tanggal"]; ?>"
+=======
+                                                            <a >
+                                                                <button type="submit" class="btn btn-fill btn-info open-modal" data-toggle="modal" data-target="#myModal" 
+                                                                data-bulan="<?php echo $ramal["bulan"]; ?>"
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
                                                                 data-total="<?php echo $ramal["total"]; ?>"
                                                                 data-ramal="<?php echo $data["ramal"][$no-1]; ?>"
                                                                 data-pesanan="<?php echo $data["pesanan"][$no-1]; ?>">
                                                                 Lihat Bahan Baku
                                                             </button>
+<<<<<<< HEAD
                                                         </a>   
+=======
+                                                        </a>
+                                                        
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
                                                     </td>
                                                 </tr>
                                                 <?php }
@@ -156,6 +185,7 @@
                                                             Baku
                                                         </button>
                                                     </a>
+
                                                 </td>
                                             </tr>
                                             <?php } ?>
@@ -182,8 +212,13 @@
 //   $('#bulan').text($('td.bulan').data('bulan'));
 // });
 $(document).on('click', '.open-modal', function(){
+<<<<<<< HEAD
     var bln = $(this).data('tanggal');
     var tgl = new Date($(this).data('tanggal'));
+=======
+    var bln = $(this).data('bulan');
+    var tgl = new Date($(this).data('bulan'));
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
     tgl.setDate(tgl.getDate() + 1);
     year = tgl.getFullYear();
     month = tgl.getMonth()+1;
@@ -191,6 +226,7 @@ $(document).on('click', '.open-modal', function(){
 
     if (dt < 10) {
       dt = '0' + dt;
+<<<<<<< HEAD
   }
   if (month < 10) {
       month = '0' + month;
@@ -236,6 +272,46 @@ $(document).on('click', '.open-modal', function(){
         $('.modal-footer #approve').addClass("btn-success");
     };
 }
+=======
+    }
+    if (month < 10) {
+      month = '0' + month;
+    }
+    var tanggal = year +'-' + month + '-'+dt;
+
+    var jumlah = $(this).data('jumlah');
+    var ramal = $(this).data('ramal');
+    var pesanan = $(this).data('pesanan');
+    var total = ramal+pesanan;
+    $('.modal-body #bulan').text(bln);
+    $('.modal-body #total').text(total);
+    $('.modal-body #ramal').text(ramal);
+    $('.modal-body #pesanan').text(pesanan);
+    $('input[name=idroti]').val(<?php echo $ramal['id_roti']?>);
+    $('input[name=tanggal]').val(tanggal);
+
+    $.ajax({
+     type: "GET",
+     url: "<?php echo base_url(); ?>index.php/c_bahanbaku/kebutuhanbahan?id=<?php echo $ramal['id_roti']?>&tanggal=" + bln,
+     data: bln,
+     success: function(result){
+        res = $.parseJSON(result);
+        console.log(res);
+
+        $('.modal-body #namaroti').text(res.roti.namaroti);
+
+        var terigu = res.kebutuhan[0].total * res.resep[0].jumlah;
+        var telur = res.kebutuhan[0].total * res.resep[1].jumlah;
+        var mentega = res.kebutuhan[0].total * res.resep[2].jumlah;
+        var ragi = res.kebutuhan[0].total * res.resep[3].jumlah;
+        var gula = res.kebutuhan[0].total * res.resep[4].jumlah;
+        $('.modal-body #terigu').text(terigu);
+        $('.modal-body #telur').text(telur);
+        $('.modal-body #mentega').text(mentega);
+        $('.modal-body #ragi').text(ragi);
+        $('.modal-body #gula').text(gula);
+    }
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
 });
 
 });

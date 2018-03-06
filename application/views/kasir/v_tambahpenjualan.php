@@ -48,6 +48,7 @@
                 <select class="form-control" name="idroti" data-placeholder="Choose an Option" tabindex="1">
                   <option value="">Select...</option>
                   <?php
+<<<<<<< HEAD
                   if (isset($roti)) {
                     foreach ($roti as $row) {
                       ?>
@@ -55,6 +56,15 @@
                       <?php
                     }
                   }
+=======
+                    if (isset($roti)) {
+                      foreach ($roti as $row) {
+                  ?>
+                        <option value="<?php echo $row['idroti']; ?>"><?php echo $row['namaroti']; ?></option>
+                  <?php
+                      }
+                    }
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
                   ?>
                 </select>
               </div>
@@ -69,6 +79,7 @@
               </div>
             </form>
           </div>
+<<<<<<< HEAD
         </div>
       </div>
       <div class="row">
@@ -177,11 +188,120 @@
                       </div>
                     </form>
                   </div>
+=======
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="header">Rincian Penjualan</div>
+            <div class="content">
+              <div class="body">
+                <table class="table table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Jenis Roti</th>
+                      <th>Jumlah</th>
+                      <th>Harga</th>
+                      <th>Sub Total</th>
+                      <th>Opsi</th>
+                    </tr>
+                  </thead>
+                  <tbody><?php
+                  $total=0;
+                  ?>
+                  <?php $i=1 ?>
+                  <?php foreach ($penjualanroti as $row){?>
+                  <tr>
+                    <td><?=$i++?></td>
+                    <td><?=$row['namaroti']?></td>
+                    <td><?=$row['jumlah']?></td>
+                    <td><?=$row['harga']?></td>
+                    <?php 
+                    $jml=$row['jumlah'];
+                    $harga=$row['harga'];
+                    $hasil=$jml*$harga;
+                    $total+=$hasil
+                    ?>
+                    <td><?php echo $hasil ?></td>
+                    <td>
+                      <div class="col-sm-4">
+                        <div style="cursor: pointer" class="demo-google-material-icon open-modal" data-toggle="modal" data-target="#modalUbah" data-jumlah="<?=$row['jumlah']?>" data-jenis="<?=$row['namaroti']?>" data-id="<?=$row['idpenjroti']?>">
+                          <b button type="submit" class="btn btn-fill btn-info" class="btn bg-blue waves-effect">Ubah</b>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <a href="<?=site_url('c_penjualan/delete/'.$row['idpenjroti'])?>" onclick="return confirm('Apakah anda yakin menghapus data ini?');">
+                          <b button type="submit" class="btn btn-danger btn-fill">Hapus</b>
+                        </a>
+                      </div>
+                    </td>
+                    <?php }?>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div> 
+        </div>
+      </div>
+      <!-- Data Penjualan end-->
+      <div class="col-md-4">
+        <!-- <div class="card"> -->
+        <div class="body">
+          <form name="form2" id="form2" method="POST" action="<?=site_url('c_penjualan/selesai_belanja_kasir')?>">
+            <div class="col-sm-12">
+              <a>Total<a>
+                <div class="form-group">
+                  <div class="form-line focused">
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <a>Rp.</a>
+                      </div>
+                      <input type="text" class="form-control" name="total_harga" id="total_harga" value=" <?php echo $total ?>" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12">
+                <a>Bayar<a>
+                  <div class="form-group">
+                    <div class="form-line focused">
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <a>Rp.</a>
+                        </div>
+                        <input type="text" class="form-control" onfocus="StartHitung()" onblur="StopHitung()" name="bayar" id="bayar"  value="" onkeypress="return isNumberKey(event)" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <a>Kembalian<a>
+                    <div class="form-group">
+                      <div class="form-line focused">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <a>Rp.</a>
+                          </div>
+                          <input type="text" class="form-control" name="kembalian" id="kembalian" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                      <div class="button-demo" style="text-align:center;">
+                        <button type="submit" name="submit" id="submit" value="Selesai" class="btn btn-primary" class="btn bg-blue waves-effect">SIMPAN</button>
+                      </div> 
+                    </div>
+                  </form>
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
                 </div>
               </div>
             </div>
           </div>
         </div>
+<<<<<<< HEAD
       </body>
       <?php $this->load->view('kasir/footer'); ?>
       <script type="text/javascript">
@@ -192,5 +312,18 @@
       });
       </script>
       </html>
+=======
+      </div>
+    </body>
+    <?php $this->load->view('kasir/footer'); ?>
+    <script type="text/javascript">
+      $(document).on('click', '.open-modal', function(){
+          $('.modal-body #id').val($(this).data('id'));
+          $('.modal-body #jenis').val($(this).data('jenis'));
+          $('.modal-body #jumlah').val($(this).data('jumlah'));
+      });
+    </script>
+</html>
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
 
  

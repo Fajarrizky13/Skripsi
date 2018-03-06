@@ -24,7 +24,10 @@ class c_bahanbaku extends CI_Controller {
 		$data["resep"] = $this->m_bahanbaku->resep($id);
 		$data["roti"] = $this->m_produk->detailproduk($id);
 		$data["kebutuhan"] = $this->m_rencanaproduksi->getJumlahRencanaProduksi($id, $tanggal);
+<<<<<<< HEAD
 		$data["stat"] = $this->m_rencanaproduksi->getStatusRencanaProduksi($id, $tanggal);
+=======
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
 		// $this->load->view('pimpinan/v_kebutuhanbahan', array('data' => $data));
 		// return($data['kebutuhan']);
 		echo json_encode($data);
@@ -45,6 +48,7 @@ class c_bahanbaku extends CI_Controller {
 
 	public function kebutuhanstok()
 	{
+<<<<<<< HEAD
 		$data["datatahun"] = $this->m_rencanaproduksi->tahun();
 		$this->load->view('pimpinan/v_kebutuhanstok', array('data'=> $data));
 	}
@@ -163,6 +167,23 @@ class c_bahanbaku extends CI_Controller {
 			);
 		
 		$this->load->view('pimpinan/v_kebutuhanstok', $data2);
+=======
+		$this->load->view('pimpinan/v_kebutuhanstok');
+	}
+	public function peramalanbulanan()
+	{
+		$data["bulan0"] = $this->m_rencanaproduksi->bulanan($_POST["bulan"]-1);
+		$data["bulan1"] = $this->m_rencanaproduksi->bulanan($_POST["bulan"]);
+
+		$alpha = 0.9;
+		$data["ramal"] = array();
+		for ($i=0; $i < count($data["bulan1"]) ; $i++) { 
+
+			$data["ramal"][] = ($alpha * $data["bulan1"][$i]['totalbulanan']) + (1 - $alpha) * $data["bulan0"][$i]['totalbulanan'];
+		}
+
+		$this->load->view('pimpinan/v_kebutuhanstok', array('data' => $data));
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
 	}
 	public function produksi() // menampilkan tabel produk
 	{

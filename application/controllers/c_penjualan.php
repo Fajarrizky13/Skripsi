@@ -94,7 +94,12 @@ class C_penjualan extends CI_Controller {
 			echo "Salah";
 		}     
 	}
+<<<<<<< HEAD
 	public function delete($id){
+=======
+	public function delete($id)
+	{
+>>>>>>> 54cdfbad7b125a5aed801ecdbd4e7d94616a7427
 		$sukses = $this->m_penjualan->delete($id);
 
 		if ($sukses) {
